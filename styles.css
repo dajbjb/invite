@@ -1,0 +1,278 @@
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;500;700&family=Heebo:wght@300;400;700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Frank Ruhl Libre', serif;
+    background-color: #0a0a0a;
+    background-image:
+        linear-gradient(rgba(20, 20, 20, 0.9), rgba(20, 20, 20, 0.9)),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    direction: rtl;
+    color: #e5c76b;
+}
+
+/* Smoke Animation */
+.smoke,
+.smoke-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.smoke {
+    background: radial-gradient(circle at 60% 60%, rgba(255, 255, 255, 0.05), transparent 60%),
+        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05), transparent 60%);
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    animation: drift 20s infinite linear;
+    filter: blur(50px);
+}
+
+@keyframes drift {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Enhancing Container with Glassmorphism */
+.container {
+    background: rgba(20, 20, 20, 0.7);
+    /* More transparent */
+    backdrop-filter: blur(10px);
+    /* Glass blur behind */
+    width: 85%;
+    max-width: 450px;
+    padding: 50px 30px;
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    position: relative;
+    text-align: center;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(212, 175, 55, 0.1);
+    z-index: 10;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 70px rgba(212, 175, 55, 0.2), inset 0 0 30px rgba(212, 175, 55, 0.2);
+}
+
+/* Internal gold border frame to mimic the image */
+.container::after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border: 1px solid #d4af37;
+    pointer-events: none;
+    box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.1);
+}
+
+/* Corner Accents */
+.container::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    pointer-events: none;
+}
+
+h1 {
+    font-family: 'Great Vibes', cursive, 'Frank Ruhl Libre', serif;
+    font-weight: 700;
+    font-size: 2.8rem;
+    margin-bottom: 40px;
+    color: #ffd700;
+    background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s infinite linear;
+    background-size: 200%;
+    filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5));
+    position: relative;
+    padding-bottom: 20px;
+}
+
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}
+
+h1::after {
+    content: "❧";
+    display: block;
+    font-size: 30px;
+    margin-top: 10px;
+    background: none;
+    -webkit-text-fill-color: #d4af37;
+    color: #d4af37;
+}
+
+/* Glow on Hover for Events */
+.event {
+    margin-bottom: 30px;
+    position: relative;
+    padding: 15px 10px;
+    transition: all 0.4s ease;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 8px;
+}
+
+.event:hover {
+    background: rgba(212, 175, 55, 0.1);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-color: #d4af37;
+}
+
+.event:last-child {
+    border-bottom: none;
+}
+
+.time {
+    display: inline-block;
+    color: #fff;
+    background-color: transparent;
+    border: 1px solid #d4af37;
+    padding: 4px 12px;
+    border-radius: 0;
+    /* Boxy look */
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    font-family: 'Heebo', sans-serif;
+    text-transform: uppercase;
+}
+
+.desc {
+    display: block;
+    font-size: 1.15rem;
+    color: #dcdcdc;
+    /* Off-white for readability */
+    line-height: 1.6;
+    font-weight: 300;
+}
+
+.footer {
+    margin-top: 50px;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: #d4af37;
+    letter-spacing: 0.5px;
+}
+
+/* Particles */
+.particle {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    background: #ffd700;
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: 0 0 5px #ffd700;
+    opacity: 0;
+    z-index: 5;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+
+    100% {
+        transform: translateY(-10vh) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Gold Leaf Decoration tweaks */
+.leaf-decoration,
+.leaf-decoration-bottom {
+    z-index: 1;
+    pointer-events: none;
+    filter: drop-shadow(0 0 5px #d4af37);
+    animation: glow-pulse 3s infinite alternate;
+}
+
+@keyframes glow-pulse {
+    from {
+        opacity: 0.3;
+        filter: drop-shadow(0 0 2px #d4af37);
+    }
+
+    to {
+        opacity: 0.6;
+        filter: drop-shadow(0 0 10px #d4af37);
+    }
+}
+
+.leaf-decoration {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle at 100% 100%, transparent 55%, #d4af37 56%, #d4af37 60%, transparent 61%);
+    top: -40px;
+    left: -40px;
+    transform: rotate(45deg);
+}
+
+.leaf-decoration-bottom {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle at 0% 0%, transparent 55%, #d4af37 56%, #d4af37 60%, transparent 61%);
+    bottom: -50px;
+    right: -50px;
+    transform: rotate(45deg);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    .container {
+        width: 90%;
+        padding: 40px 20px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    .desc {
+        font-size: 1rem;
+    }
+
+    .footer {
+        font-size: 1.2rem;
+    }
+}
