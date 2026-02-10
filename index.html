@@ -7,19 +7,32 @@
     <title>Our Special Day</title>
     <!-- Hebrew compatible font -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;500;700&family=Heebo:wght@300;400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;500;700&family=Heebo:wght@300;400;700&family=Great+Vibes&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="envelope.css">
 </head>
 
 <body>
-    <div class="container">
+
+    <!-- Envelope Entrance Overlay -->
+    <div id="envelope-container">
+        <div class="envelope-wrapper" id="wrapper">
+            <div class="envelope">
+                <div class="flap"></div>
+                <div class="wax-seal" id="wax-seal">❤</div>
+            </div>
+            <div class="glow-effect"></div>
+        </div>
+    </div>
+
+    <!-- Main Invitation Content (Hidden initially) -->
+    <div class="container" id="main-invitation">
         <div class="leaf-decoration"></div>
         <div class="leaf-decoration-bottom"></div>
         <h1>התוכנית שלנו ✨</h1>
 
-        <script src="script.js"></script>
-
+        <!-- Content -->
         <div class="event">
             <span class="time">13:00</span>
             <span class="desc">נפגשים בשוק, קונים את כל הממתקים והפינוקים שלנו 🍭</span>
@@ -52,6 +65,9 @@
 
         <div class="footer">מחכה כבר להתחיל את היום הזה איתך...</div>
     </div>
+
+    <script src="script.js"></script>
+    <script src="envelope.js"></script>
 </body>
 
 </html>
