@@ -28,7 +28,8 @@
 
         body,
         html {
-            height: 100%;
+            min-height: 100%;
+            min-height: -webkit-fill-available;
             font-family: 'Varela Round', sans-serif;
             overflow-x: hidden;
             background-color: #0f0c29;
@@ -334,23 +335,74 @@
             }
         }
 
-        /* Responsive */
+        /* Responsive Optimizations */
         @media (max-width: 600px) {
+            .content-wrapper {
+                padding: 15px 10px;
+                align-items: flex-start;
+                /* Better for long content on mobile */
+            }
+
             .main-card {
-                padding: 40px 25px;
+                padding: 30px 20px;
+                border-radius: 25px;
+                margin-top: 10px;
             }
 
             .shimmer-text {
-                font-size: 3rem;
+                font-size: 2.5rem;
+                margin-bottom: 10px;
+            }
+
+            h2.subtitle {
+                font-size: 1.4rem;
+                margin-bottom: 25px;
             }
 
             .letter-body {
-                font-size: 1.15rem;
+                font-size: 1.1rem;
+                line-height: 1.6;
+            }
+
+            .joke-container {
+                padding: 20px;
+                margin: 25px 0;
+            }
+
+            .joke-title {
+                font-size: 1.2rem;
+            }
+
+            .joke-text {
+                font-size: 1.1rem;
             }
 
             .final-wish {
-                font-size: 2.8rem;
+                font-size: 2.2rem;
             }
+
+            .signature-name {
+                font-size: 1.6rem;
+            }
+
+            /* Improve background visibility on mobile */
+            .bg-image {
+                filter: blur(2px) brightness(0.8);
+                top: -2%;
+                left: -2%;
+                width: 104%;
+                height: 104%;
+            }
+
+            .overlay {
+                background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+            }
+        }
+
+        /* Prevent horizontal scroll on some mobile browsers */
+        body {
+            max-width: 100vw;
+            overflow-x: hidden;
         }
     </style>
 </head>
@@ -416,17 +468,30 @@
     </div>
 
     <script>
-        // 1. Mouse Parallax Effect
-        document.addEventListener('mousemove', (e) => {
-            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
-            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+        // 1. Parallax Effect (Optimized for both Desktop & Mobile)
+        function updateParallax(x, y) {
+            const moveX = (x - window.innerWidth / 2) * 0.01;
+            const moveY = (y - window.innerHeight / 2) * 0.01;
 
             const bg = document.getElementById('parallaxBg');
-            bg.style.transform = `scale(1.1) translate(${moveX * -2}px, ${moveY * -2}px)`;
-
             const card = document.getElementById('tiltCard');
-            card.style.transform = `rotateY(${moveX * 2}deg) rotateX(${moveY * -2}deg)`;
+
+            if (bg) bg.style.transform = `scale(1.1) translate(${moveX * -2}px, ${moveY * -2}px)`;
+            if (card && window.innerWidth > 768) { // Only tilt card on larger screens
+                card.style.transform = `rotateY(${moveX * 2}deg) rotateX(${moveY * -2}deg)`;
+            }
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            updateParallax(e.clientX, e.clientY);
         });
+
+        // Add subtle tilt on touch for mobile
+        document.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                updateParallax(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: true });
 
         // 2. Confetti Cannon
         function createConfetti() {
@@ -520,7 +585,9 @@
             }
         }
 
-        for (let i = 0; i < 30; i++) particles.push(new Particle());
+        // Limit particles on mobile for better performance
+        const maxParticles = window.innerWidth < 600 ? 15 : 30;
+        for (let i = 0; i < maxParticles; i++) particles.push(new Particle());
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
